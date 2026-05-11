@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Nyan - Official Menu</title>
+    <style>
+        :root { --overlay-bg: rgba(0, 0, 0, 0.95); --text-color: white; --panel-bg: rgba(255, 255, 255, 0.08); }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: black; font-family: 'Segoe UI', sans-serif; color: var(--text-color); }
+        
+        /* Backgrounds */
+        #loading-screen { position: fixed; inset: 0; background: #111 url('Assets/Images/GUI/loadingscreenbackground.png') no-repeat center center/cover; display: flex; justify-content: center; align-items: center; z-index: 1000; cursor: pointer; }
+        #fade-overlay { position: fixed; inset: 0; background: black; opacity: 0; z-index: 1500; pointer-events: none; transition: opacity 0.7s ease-in-out; }
+        #home-menu { position: relative; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; visibility: hidden; }
+        #parallax-bg { position: absolute; inset: -10%; background: #111 url('Assets/Images/GUI/background.png') no-repeat center center/cover; z-index: -1; transition: transform 0.1s ease-out; }
+
+        /* UI Elements */
+        .title { position: absolute; top: 40px; width: 420px; max-width: 85%; }
+        .play-btn { cursor: pointer; width: 170px; z-index: 10; animation: playPulse 2s infinite ease-in-out; }
+        @keyframes playPulse { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px #fff); } 50% { transform: scale(1.08); filter: drop-shadow(0 0 20px #fff); } }
+        
+        .icon { position: absolute; width: 65px; cursor: pointer; transition: 0.2s; z-index: 20; }
+        .icon:hover { transform: scale(1.15); filter: brightness(1.2); }
+        .store-icon { top: 30px; left: 30px; }
+        .settings-icon { bottom: 30px; left: 30px; }
+        .github-icon { bottom: 30px; right: 30px; }
+
+        /* Panels */
+        .overlay-panel { position: fixed; inset: 0; background: var(--overlay-bg); z-index: 3000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(12px); }
+        .content-box { background: var(--panel-bg); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); width: 480px; text-align: center; max-height: 90vh; overflow-y: auto; }
+        
+        .tab-nav { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 10px; background: #222; border-radius: 8px; cursor: pointer; border: 1px solid #444; font-weight: bold; }
+        .tab-btn.active { background: gold; color: black; border-color: white; }
+
+        .item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-height: 300px; overflow-y: auto; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 12px; }
+        .item-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; font-size: 11px; }
+        
+        .select-btn { background: #333; border: 1px solid #555; color: white; padding: 12px; cursor: pointer; border-radius: 8px; font-weight: bold; width: 100%; }
+        .select-btn.active { background: #00ff00; color: black; border-color: white; }
+
+        .start-btn { background: #00ff00; color: black; padding: 15px; width: 100%; border-radius: 10px; font-size: 1.2rem; font-weight: bold; margin-top: 15px; }
+        .start-btn:disabled { background: #444; color: #888; cursor: not-allowed; }
+        .back-btn { background: white; color: black; padding: 10px; width: 100%; border-radius: 8px; font-weight: bold; margin-top: 10px; }
+
+        .coin-display { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.4rem; color: gold; font-weight: bold; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <audio id="sfx-click" src="Assets/Audios/click.mp3"></audio>
+    <audio id="sfx-start" src="Assets/Audios/start.mp3"></audio>
+
+    <div id="loading-screen" onclick="startTransition()">
+        <div style="color:white; letter-spacing:4px; font-weight: bold;">CLICK TO START</div>
+    </div>
+
+    <div id="fade-overlay"></div>
+
+    <div id="home-menu">
+        <div id="parallax-bg"></div>
+        <img src="Assets/Images/GUI/title.png" class="title">
+        <img src="Assets/Images/GUI/playicon.png" class="play-btn" onclick="openPreGame()">
+        
+        <img src="Assets/Images/GUI/storeicon.png" class="icon store-icon" onclick="openStore()">
+        <img src="Assets/Images/GUI/settings.png" class="icon settings-icon" onclick="openSettings()">
+        
+        <a href="https://github.com/fayadgamer13/flappy_nyan.github.io" target="_blank" onclick="playSound()">
+            <img src="Assets/Images/GUI/favicongithub.png" class="icon github-icon">
+        </a>
+    </div>
+
+    <div id="store-overlay" class="overlay-panel">
+        <div class="content-box">
+            <h2>SHOP</h2>
+            <div class="coin-display">
+                <img src="Assets/Images/GUI/coin.png" style="width:24px;"> <span id="coin-count">1000</span>
+            </div>
+            <div class="tab-nav">
+                <div class="tab-btn active" id="tab-av" onclick="setStoreTab('avatars')">AVATARS</div>
+                <div class="tab-btn" id="tab-pw" onclick="setStoreTab('powerups')">POWER-UPS</div>
+            </div>
+            <div class="item-grid" id="store-grid"></div>
+            <button class="back-btn" onclick="closePanels()">BACK</button>
+        </div>
+    </div>
+
+    <div id="settings-overlay" class="overlay-panel">
+        <div class="content-box">
+            <h2>SETTINGS</h2>
+            <button onclick="exportDataNyan()" style="background:#444; color:white; border:1px solid #666; width:100%; padding:12px; margin-bottom:10px;">BACKUP DATA (.nyan6n)</button>
+            <button onclick="document.getElementById('fileInput').click()" style="background:#444; color:white; border:1px solid #666; width:100%; padding:12px; margin-bottom:10px;">RESTORE DATA</button>
+            <input type="file" id="fileInput" hidden accept=".nyan6n" onchange="importDataNyan(event)">
+            <button onclick="resetData()" style="background:#a33; color:white; width:100%; padding:12px;">RESET ALL PROGRESS</button>
+            <button class="back-btn" onclick="closePanels()">BACK</button>
+        </div>
+    </div>
+
+    <div id="pregame-overlay" class="overlay-panel">
+        <div class="content-box">
+            <h2>GAME SETUP</h2>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin:15px 0;">
+                <button class="select-btn" id="m-space" onclick="setMode('Lost Space')">LOST SPACE</button>
+                <button class="select-btn" id="m-bird" onclick="setMode('Flappy Bird')">FLAPPY BIRD</button>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:15px;">
+                <button class="select-btn" id="d-easy" onclick="setDiff('Easy')">EASY</button>
+                <button class="select-btn" id="d-med" onclick="setDiff('Med')">MED</button>
+                <button class="select-btn" id="d-hard" onclick="setDiff('HARD')">HARD</button>
+            </div>
+            <p style="font-size:12px; color:#aaa;">Equip Power-Up:</p>
+            <div id="p-equip-list" style="display:flex; gap:10px; overflow-x:auto; padding:10px; background:rgba(0,0,0,0.3); border-radius:10px;"></div>
+            <button class="start-btn" id="game-start-btn" onclick="startGame()" disabled>START GAME</button>
+            <button class="back-btn" onclick="closePanels()">BACK</button>
+        </div>
+    </div>
+
+    <script>
+        const sfxClick = document.getElementById('sfx-click');
+        const sfxStart = document.getElementById('sfx-start');
+
+        let playerData = {
+            coins: 1000,
+            bestScore: 0,
+            boughtPlayers: ["Player 1"],
+            boughtPowerUps: [],
+            mode: null, diff: null, power: null
+        };
+
+        function playSound() { sfxClick.currentTime = 0; sfxClick.play(); }
+
+        function startTransition() {
+            playSound();
+            document.getElementById('fade-overlay').style.opacity = '1';
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('home-menu').style.visibility = 'visible';
+                document.getElementById('fade-overlay').style.opacity = '0';
+            }, 700);
+        }
+
+        // --- Panel Controls ---
+        function openStore() { playSound(); document.getElementById('store-overlay').style.display = 'flex'; renderStore(); }
+        function openSettings() { playSound(); document.getElementById('settings-overlay').style.display = 'flex'; }
+        function openPreGame() { playSound(); document.getElementById('pregame-overlay').style.display = 'flex'; renderPreGamePowers(); }
+        function closePanels() { playSound(); document.querySelectorAll('.overlay-panel').forEach(p => p.style.display = 'none'); }
+
+        // --- Store Logic ---
+        let currentTab = 'avatars';
+        function setStoreTab(t) { currentTab = t; playSound(); renderStore(); }
+        function renderStore() {
+            const grid = document.getElementById('store-grid');
+            grid.innerHTML = '';
+            document.getElementById('tab-av').className = currentTab === 'avatars' ? 'tab-btn active' : 'tab-btn';
+            document.getElementById('tab-pw').className = currentTab === 'powerups' ? 'tab-btn active' : 'tab-btn';
+
+            if (currentTab === 'avatars') {
+                for(let i=1; i<=40; i++) {
+                    const name = `Player ${i}`;
+                    const owned = playerData.boughtPlayers.includes(name);
+                    grid.innerHTML += `<div class="item-card">${name}<button onclick="buyItem('${name}', ${i*50}, 'avatars')" style="background:${owned?'#555':'gold'}; width:100%; border:none; margin-top:5px; border-radius:4px;">${owned?'OWNED':i*50}</button></div>`;
+                }
+            } else {
+                const powers = [{n:'Speed', p:200}, {n:'Shield', p:300}, {n:'Floating', p:250}, {n:'x2 Score', p:500}];
+                powers.forEach(pw => {
+                    const owned = playerData.boughtPowerUps.includes(pw.n);
+                    grid.innerHTML += `<div class="item-card">${pw.n}<button onclick="buyItem('${pw.n}', ${pw.p}, 'powerups')" style="background:${owned?'#555':'gold'}; width:100%; border:none; margin-top:5px; border-radius:4px;">${owned?'OWNED':pw.p}</button></div>`;
+                });
+            }
+        }
+
+        function buyItem(name, price, type) {
+            const list = type === 'avatars' ? playerData.boughtPlayers : playerData.boughtPowerUps;
+            if (list.includes(name)) return;
+            if (playerData.coins >= price) {
+                playerData.coins -= price;
+                list.push(name);
+                playSound(); updateUI(); renderStore();
+            } else { alert("Not enough coins!"); }
+        }
+
+        // --- Pre-Game Selection ---
+        function setMode(m) { 
+            playerData.mode = m; playSound(); 
+            document.getElementById('m-space').className = m==='Lost Space'?'select-btn active':'select-btn';
+            document.getElementById('m-bird').className = m==='Flappy Bird'?'select-btn active':'select-btn';
+            checkReady();
+        }
+        function setDiff(d) { 
+            playerData.diff = d; playSound(); 
+            document.getElementById('d-easy').className = d==='Easy'?'select-btn active':'select-btn';
+            document.getElementById('d-med').className = d==='Med'?'select-btn active':'select-btn';
+            document.getElementById('d-hard').className = d==='HARD'?'select-btn active':'select-btn';
+            checkReady();
+        }
+        function renderPreGamePowers() {
+            const container = document.getElementById('p-equip-list');
+            container.innerHTML = '';
+            playerData.boughtPowerUps.forEach(p => {
+                const isActive = playerData.power === p;
+                container.innerHTML += `<div onclick="togglePower('${p}')" style="background:${isActive?'gold':'#444'}; color:${isActive?'black':'white'}; padding:8px; border-radius:5px; cursor:pointer; font-size:10px;">${p}</div>`;
+            });
+        }
+        function togglePower(p) { playerData.power = (playerData.power === p) ? null : p; playSound(); renderPreGamePowers(); }
+        function checkReady() { document.getElementById('game-start-btn').disabled = !(playerData.mode && playerData.diff); }
+
+        function startGame() { sfxStart.play(); alert(`Mode: ${playerData.mode}\nDiff: ${playerData.diff}\nPower: ${playerData.power || 'None'}`); }
+
+        // --- Data Logic ---
+        function updateUI() { document.getElementById('coin-count').innerText = playerData.coins; }
+        function exportDataNyan() {
+            const content = `Flappy Nyan Backup Data\n{\n coins:${playerData.coins}\n {\n  BestScore:${playerData.bestScore}\n   {\n     ListsofBoughtPlayers:${playerData.boughtPlayers.join(',')}\n      {\n       PowerUps:${playerData.boughtPowerUps.join(',')}\n      }\n     }\n    }\n   }\n}`;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'FLAPPY NYAN DATA.nyan6n'; a.click();
+        }
+        function importDataNyan(e) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const text = ev.target.result;
+                const c = text.match(/coins:(\d+)/);
+                const s = text.match(/BestScore:(\d+)/);
+                if (c) playerData.coins = parseInt(c[1]);
+                if (s) playerData.bestScore = parseInt(s[1]);
+                updateUI(); alert("Success!");
+            };
+            reader.readAsText(e.target.files[0]);
+        }
+        function resetData() { if(confirm("Reset?")) location.reload(); }
+
+        // --- Error/Parallax ---
+        document.addEventListener('error', e => { if(e.target.tagName==='IMG') e.target.src='Assets/Images/GUI/error.svg'; }, true);
+        document.addEventListener('mousemove', e => {
+            const bg = document.getElementById('parallax-bg');
+            if(bg) bg.style.transform = `translate(${(window.innerWidth/2 - e.pageX)/70}px, ${(window.innerHeight/2 - e.pageY)/70}px)`;
+        });
+    </script>
+</body>
+</html>

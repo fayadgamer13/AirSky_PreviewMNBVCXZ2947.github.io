@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.png" />
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+        html,
+      body {
+        background-color:rgb(19, 19, 19);
+        margin: 0px;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        /* pointer-events: none; */
+      }
+      canvas {
+        border-radius: 30px;
+      }
+      #loading_page {
+        background-color: orange;
+        border-radius: 50px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+
+      #loading-text{
+        position: absolute;
+        top: 62%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 20%;
+        max-height: 20%;
+        pointer-events: none;
+      }
+
+
+      #loadingIcon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        height: auto;
+        max-width: 20%;
+        max-height: 20%;
+        object-fit: cover;
+        animation: swing 2s infinite ease-in-out;
+        pointer-events: none;
+      }
+      @keyframes swing {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        25% {
+          transform: translate(-50%, -50%) rotate(15deg);
+        }
+        50% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        75% {
+          transform: translate(-50%, -50%) rotate(-15deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+      }
+
+    </style>
+     <title>XTRA Bottle Flip Challenge</title>
+  </head>
+  <body>
+    <div id="loading_page">
+      <img
+        id="loadingIcon"
+        src="./assets/bottle.png"
+        alt="Loading_icon"
+      />
+      <h1 id="loading-text">Loading...</h1>
+    </div>
+    <!-- <div id="loading_page">
+      <img
+        id="loadingIcon"
+        src="/Bottle-Flip-Game/assets/bottle.png"
+        alt="Loading_icon"
+      />
+      <h1 id="loading-text">Loading...</h1>
+    </div> -->
+    <script src="CursorController.js"></script>
+    <script src="Bottle.js"></script>
+    <script src="PlayScene.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
