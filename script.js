@@ -108,5 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('theme-select').value = sTheme;
     }
 
+       const dialog = document.getElementById('myDialog');
+    const closeBtn = document.getElementById('closeBtn');
+
+    // Automatically show the dialog on page load
+    window.addEventListener('DOMContentLoaded', () => {
+        dialog.showModal(); // showModal() makes it a modal
+    });
+
+    // Close the dialog when the OK button is clicked
+    closeBtn.addEventListener('click', () => {
+        dialog.close();
+    });
+
     load();
 });
