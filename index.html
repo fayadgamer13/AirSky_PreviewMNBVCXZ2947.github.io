@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirSky Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="AirSky" />
+<link rel="manifest" href="site.webmanifest" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+
+<img id="custom-cursor-follower" src="system/rounded.png" style="display:none; position:fixed; pointer-events:none; z-index:99999; width:32px; height:32px; transform: translate(-50%, -50%);">
+<nav class="side-nav" id="side-nav">
+        <button id="nav-toggle" style="background:none; border:none; color:var(--accent); padding:20px; font-size:1.5rem;">☰</button>
+        <button class="nav-item active" data-target="games-section">🎮 <span>Games</span></button>
+        <button class="nav-item" data-target="minecraft-versions"><img src="games/minecraft/icon.svg" alt="Minecraft icon" width="16" height="16"><span>Minecraft Versions</span></button>
+        <button class="nav-item" data-target="browser-tab-content">🌐 <span>Web Browser</span></button>
+        <button class="nav-item" data-target="apps-section">📱 <span>Apps</span></button>
+        <button class="nav-item" data-target="pc-vm">💻 <span>PC</span></button>
+        <button class="nav-item" data-target="game-request-section">📝 <span>Request Game</span></button>
+        <button class="nav-item" data-target="download-airsky">📥<span>Download App</span></button>
+        <button class="nav-item" data-target="projects">🎁<span></span></button>
+
+        
+        <div class="sidebar-widgets">
+            <div class="widget-item">
+                <span id="live-clock">00:00:00</span>
+            </div>
+            <div class="widget-item status">
+                <div class="status-dot"></div>
+                <span>System Ready</span>
+            </div>
+            <div class="widget-item">
+                <span id="battery-icon">🔋</span>
+                <span id="battery-level">Checking...</span>
+            </div>
+              <p>AirSky Version 1.8.1</p>
+        </div>
+    </nav>
+
+<div class="content-wrapper">
+    <header>
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img id="profile-avatar" src="default-avatar.png" class="profile-avatar" onerror="this.src='https://via.placeholder.com/45'">
+            <h1 id="welcome-text">Welcome</h1>
+        </div>
+        <button id="settings-btn">Settings</button>
+    </header>
+
+    <main>
+        <section id="games-section" class="tab-content active">
+            
+            
+            <div id="recent-played-container" style="display: none; margin-bottom: 40px; width: 100%;">
+    <h2 style="margin-bottom: 20px; color: var(--accent); font-size: 1rem; letter-spacing: 1px; text-transform: uppercase;">Recently Played</h2>
+    <div id="recent-grid" class="games-grid">
+        </div>
+    <hr style="border: 0; border-top: 1px solid var(--border); margin: 30px 0;">
+</div>
+            <div class="search-container">
+                <input type="text" id="game-search" placeholder="Search your games... 🔍">
+            </div>
+
+            <div class="games-grid">
+
+                
+
+        <div class="game-card" data-url="games/ookieclicker/index.html">
+            <img src="games/cookieclicker/icon.png" alt="Cookie Clicker" loading="lazy">
+            <p>Cookie Clicker</p>
+        </div>
+
+        <div class="game-card" data-url="games/territorial.io/index.html">
+            <img src="games/territorial.io/icon.svg" alt="Territorial.io" loading="lazy">
+            <p>Territorial.io</p>
+        </div>
+
+        <div class="game-card" data-url="games/infinitecraft/index.html">
+            <img src="games/infinitecraft/icon.png" alt="Infinite Craft" loading="lazy">
+            <p>Infinite Craft</p>
+        </div>
+
+        <div class="game-card" data-url="games/ducklife4/index.html">
+            <img src="games/ducklife4/splash.jpg" alt="Duck Life 4" loading="lazy">
+            <p>Duck Life 4</p>
+        </div>
+
+        <div class="game-card" data-url="games/crossyroad/index.html">
+            <img src="games/crossyroad/crossyroad.png" alt="Crossy Road" loading="lazy">
+            <p>Crossy Road</p>
+        </div>
+
+        <div class="game-card" data-url="games/gd/index.html">
+            <img src="games/gd/icon.jpeg" alt="Geometry Dash" loading="lazy">
+            <p>Geometry Dash</p>
+        </div>
+
+        <div class="game-card" data-url="games/monkeymart/index.html">
+            <img src="games/monkeymart/icon.png" alt="Monkey Mart" loading="lazy">
+            <p>Monkey Mart</p>
+        </div>
+
+        <div class="game-card" data-url="games/snowrider/index.html">
+            <img src="games/snowrider/icon.jpeg" alt="Snow Rider" loading="lazy">
+            <p>Snow Rider</p>
+        </div>
+
+        <div class="game-card" data-url="games/capyfanmade/index.html">
+            <img src="games/capyfanmade/icon.png" alt="Capybara Clicker Fanmade" loading="lazy">
+            <p>Capybara Clicker Fanmade</p>
+        </div>
+
+        <div class="game-card" data-url="games/ovo2/index.html">
+            <img src="games/ovo2/icon.png" alt="OvO 2" loading="lazy">
+            <p>OvO 2</p>
+        </div>
+
+        <div class="game-card" data-url="games/stickmanh/index.html">
+            <img src="games/stickmanh/icon.png" alt="Stickman Hook" loading="lazy">
+            <p>Stickman Hook</p>
+        </div>
+
+        <div class="game-card" data-url="games/drivemad/index.html">
+            <img src="games/drivemad/icon.png" alt="Drive Mad" loading="lazy">
+            <p>Drive Mad</p>
+        </div>
+
+        <div class="game-card" data-url="games/fnf/index.html">
+            <img src="games/fnf/icon.png" alt="Friday Night Funkin" loading="lazy">
+            <p>Friday Night Funkin</p>
+        </div>
+
+        <div class="game-card" data-url="games/slope2/index.html">
+            <img src="games/slope2/icon.png" alt="Slope" loading="lazy">
+            <p>Slope</p>
+        </div>
+
+        <div class="game-card" data-url="games/leveld/index.html">
+            <img src="games/leveld/icon.jpeg" alt="Level Devil" loading="lazy">
+            <p>Level Devil</p>
+        </div>
+           
+        <div class="game-card" data-url="games/timeshooter/2/index.html">
+            <img src="games/timeshooter/2/icon.jpeg" alt="Time Shooter 2" loading="lazy">
+            <p>Time Shooter 2</p>
+        </div>
+
+        <div class="game-card" data-url="games/timeshooter/3/index.html">
+            <img src="games/timeshooter/3/icon.jpeg" alt="Time Shooter 3" loading="lazy">
+            <p>Time Shooter 3 SWAT</p>
+        </div>
+
+        <div class="game-card" data-url="games/idleants/src/index.html">
+            <img src="games/idleants/icon.jpg" alt="Idle Ants" loading="lazy">
+            <p>Idle Ants</p>
+        </div>
+
+        <div class="game-card" data-url="games/baldi/index.html">
+            <img src="games/baldi/icon.png" alt="Baldi basics" loading="lazy">
+            <p>Baldi Basics</p>
+        </div>
+
+        <div class="game-card" data-url="games/ducklife4/5/index.html">
+            <img src="games/ducklife4/5/icon.png" alt="Duck Life 5" loading="lazy">
+            <p>Duck Life 5</p>
+        </div>
+
+        <div class="game-card" data-url="games/rollingsky/scratch/illusion/index.html">
+            <img src="games/rollingsky/scratch/illusion/icon.png" alt="Rolling Sky illusion Scratch Version" loading="lazy">
+            <p>Rolling Sky illusion (S. Version)</p>
+        </div>
+        
+        <div class="game-card" data-url="games/firuitn/index.html">
+            <img src="games/firuitn/FruitNinjaTeaser.jpg" alt="Fruit Ninja" loading="lazy">
+            <p>Fruit Ninja</p>
+        </div>
+        
+        <div class="game-card" data-url="games/pacman/index.html">
+            <img src="games/pacman/icon.png" alt="Pac-man" loading="lazy">
+            <p>Pac-man</p>
+        </div>
+        
+        <div class="game-card" data-url="games/subway/index.html">
+            <img src="games/subway/NewYorkIcon.png" alt="Subway Surfers" loading="lazy">
+            <p>Subway Surfers</p>
+        </div>
+
+        <div class="game-card" data-url="games/tombofmask/index.html">
+            <img src="games/tombofmask/icon.png" alt="Tomb Of the Mask" loading="lazy">
+            <p>Tomb Of the Mask</p>
+        </div>
+
+            <div class="game-card" data-url="games/tombofmask/scratch/index.html">
+            <img src="games/tombofmask/scratch/iconscratch.png" alt="Tomb Of the Mask Scratch Version" loading="lazy">
+            <p>Tomb Of the Mask (S. Version)</p>
+        </div>
+
+               <div class="game-card" data-url="games/swingo/index.html">
+            <img src="games/swingo/icon.png" alt="Siwngo" loading="lazy">
+            <p>Siwngo</p>
+        </div>
+
+            <div class="game-card" data-url="games/scrapmetal/index.html">
+            <img src="games/scrapmetal/icon.jpg" alt="Scrap Metal" loading="lazy">
+            <p>Scrap Metal</p>
+        </div>
+
+              <div class="game-card" data-url="games/firuitmerge/index.html">
+            <img src="games/firuitmerge/icon.jpg" alt="Fruit Merge" loading="lazy">
+            <p>Fruit Merge</p>
+        </div>
+
+           <div class="game-card" data-url="system/QE13IP80.html">
+            <img src="games/papasgame/icons/sushiria.png" alt="Papa's Sushiria" loading="lazy">
+            <p>Papa's Sushiria</p>
+        </div>
+
+            <div class="game-card" data-url="system/QE13IP80.html">
+            <img src="games/papasgame/icons/pastaria.png" alt="Papa's Pastaria" loading="lazy">
+            <p>Papa's Pastaria</p>
+        </div>
+
+          <div class="game-card" data-url="games/papasgame/games/papas-burgeria/index.html">
+            <img src="games/papasgame/icons/burgeria.png" alt="Papa's Burgeria" loading="lazy">
+            <p>Papa's Burgeria</p>
+        </div>
+
+        <div class="game-card" data-url="games/papasgame/games/papas-freezeria/index.html">
+            <img src="games/papasgame/icons/freezeria.png" alt="Papa's Freezeria" loading="lazy">
+            <p>Papa's Freezeria</p>
+        </div>
+
+          <div class="game-card" data-url="games/sprunki/index.html">
+            <img src="games/sprunki/icon.png" alt="Sprunki" loading="lazy">
+            <p>Sprunki</p>
+        </div>
+
+            <div class="game-card" data-url="games/run/index.html">
+            <img src="games/run/icon.png" alt="Run 3" loading="lazy">
+            <p>Run 3</p>
+        </div>
+
+          <div class="game-card" data-url="games/run/index2.html">
+            <img src="games/run/icon.png" alt="Run 2" loading="lazy">
+            <p>Run 2</p>
+        </div>
+
+          <div class="game-card" data-url="games/run/index1.html">
+            <img src="games/run/icon.png" alt="Run 1" loading="lazy">
+            <p>Run 1</p>
+        </div>
+
+            <div class="game-card" data-url="games/paperio/index.html">
+            <img src="games/paperio/icon.jpg" alt="Paper.io" loading="lazy">
+            <p>Paper.io</p>
+        </div>
+
+          <div class="game-card" data-url="games/slitherio/slither-io/index.html">
+            <img src="games/slitherio/icon.png" alt="Slither.io Fanmade" loading="lazy">
+            <p>Slither.io Fanmade</p>
+        </div>
+
+                 <div class="game-card" data-url="games/flappybird/index.html">
+            <img src="games/flappybird/icon.png" alt="Flappy Bird" loading="lazy">
+            <p>Flappy Bird</p>
+        </div>
+
+             <div class="game-card" data-url="games/templerun2/index.html">
+            <img src="games/templerun2/img/og-icon.png" alt="Temple Run 2" loading="lazy">
+            <p>Temple Run 2</p>
+        </div>
+
+         <div class="game-card" data-url="games/firebwaterg/index.html">
+            <img src="games/firebwaterg/icon.png" alt="Fireboy and Watergirl" loading="lazy">
+            <p>Fireboy and Watergirl</p>
+        </div>
+          
+        <div class="game-card" data-url="games/doodlejump/index.html">
+            <img src="games/doodlejump/icon.png" alt="Doodle Jump" loading="lazy">
+            <p>Doodle Jump</p>
+        </div>
+
+            <div class="game-card" data-url="games/houseofhazards/index.html">
+            <img src="games/houseofhazards/icon.png" alt="House of Hazards" loading="lazy">
+            <p>House of Hazards</p>
+        </div>
+
+         <div class="game-card" data-url="games/fnaf/index.html">
+            <img src="games/fnaf/icon.png" alt="Five Nights at Freddy's 2" loading="lazy">
+            <p>Five Nights at Freddy's 2</p>
+        </div>
+
+         <div class="game-card" data-url="https://doondook.studio/games/dd-bottle-flip/v1.0.3/">
+            <img src="games/bottleflip/icon.png" alt="Bottle Flip" loading="lazy">
+            <p>Bottle Flip</p>
+        </div>
+
+          <div class="game-card" data-url="games/blockblast/index.html">
+            <img src="games/blockblast/icon.jpg" alt="Block Blast" loading="lazy">
+            <p>Block Blast</p>
+        </div>
+
+         <div class="game-card" data-url="games/coreball/index.html">
+            <img src="games/coreball/icon.png" alt="Coreball" loading="lazy">
+            <p>Coreball</p>
+        </div>
+
+         <div class="game-card" data-url="games/schoolboy/popup.html">
+            <img src="games/schoolboy/icon.png" alt="SchoolBoy Runaway" loading="lazy">
+            <p>SchoolBoy Runaway</p>
+        </div>
+
+         <div class="game-card" data-url="games/agar.io/index.html">
+            <img src="games/agar.io/icon.png" alt="Agar.io" loading="lazy">
+            <p>Agar.io</p>
+        </div>
+
+            <div class="game-card" data-url="games/2048/index.html">
+            <img src="games/2048/icon.png" alt="2048" loading="lazy">
+            <p>2048</p>
+        </div>
+
+           <div class="game-card" data-url="games/retrobowl/index.html">
+            <img src="games/retrobowl/icon.png" alt="Retro Bowl" loading="lazy">
+            <p>Retro Bowl</p>
+        </div>
+
+        <div class="game-card" data-url="games/wbwwb/index.html">
+            <img src="games/wbwwb/icon.png" alt="We Become What We Behold" loading="lazy">
+            <p>We Become What We Behold</p>
+        </div>
+
+        <div class="game-card" data-url="games/driftboss/index.html">
+            <img src="games/driftboss/icon.png" alt="Drift Boss" loading="lazy">
+            <p>Drift Boss</p>
+        </div>
+
+         <div class="game-card" data-url="games/jellytruck/index.html">
+            <img src="games/jellytruck/icon.png" alt="Jelly Truck" loading="lazy">
+            <p>Jelly Truck</p>
+        </div>
+
+          <div class="game-card" data-url="games/sortthecourt/index.html">
+            <img src="games/sortthecourt/icon.png" alt="Sort The Court" loading="lazy">
+            <p>Sort The Court</p>
+        </div>
+
+        <div class="game-card" data-url="games/tetris/index.html">
+            <img src="games/tetris/icon.png" alt="Tetris" loading="lazy">
+            <p>Tetris</p>
+        </div>
+
+          <div class="game-card" data-url="games/minesweeper/index.html">
+            <img src="games/minesweeper/icon.png" alt="Minesweeper" loading="lazy">
+            <p>Minesweeper</p>
+        </div>
+
+             <div class="game-card" data-url="games/vexgames/vex3/index.html">
+            <img src="games/vexgames/icons/3.png" alt="Vex 3" loading="lazy">
+            <p>Vex 3</p>
+        </div>
+
+        <div class="game-card" data-url="games/vexgames/vex4/index.html">
+            <img src="games/vexgames/icons/4.png" alt="Vex 4" loading="lazy">
+            <p>Vex 4</p>
+        </div>
+
+        <div class="game-card" data-url="games/vexgames/vex5/index.html">
+            <img src="games/vexgames/icons/5.png" alt="Vex 5" loading="lazy">
+            <p>Vex 5</p>
+        </div>
+
+        <div class="game-card" data-url="games/vexgames/vex6/index.html">
+            <img src="games/vexgames/icons/6.png" alt="Vex 6" loading="lazy">
+            <p>Vex 6</p>
+        </div>
+
+         <div class="game-card" data-url="games/vexgames/vex7/index.html">
+            <img src="games/vexgames/icons/7.png" alt="Vex 7" loading="lazy">
+            <p>Vex 7</p>
+        </div>
+
+         <div class="game-card" data-url="games/bobtherobber2/index.html">
+            <img src="games/bobtherobber2/icon.png" alt="Bob The Robber 2" loading="lazy">
+            <p>Bob The Robber 2</p>
+        </div>
+
+        <div class="game-card" data-url="games/cuttherope/index.html">
+            <img src="games/cuttherope/icon.png" alt="Cut the Rope" loading="lazy">
+            <p>Cut the Rope</p>
+        </div>
+
+        <div class="game-card" data-url="games/jetpack/index.html">
+            <img src="games/jetpack/icon.png" alt="Jetpack Joyride" loading="lazy">
+            <p>Jetpack Joyride</p>
+        </div>
+
+        <div class="game-card" data-url="games/bitlife/index.html">
+            <img src="games/bitlife/icon.png" alt="Bitlife" loading="lazy">
+            <p>Bitlife</p>
+        </div>
+
+        <div class="game-card" data-url="games/basketballstar/index.html">
+            <img src="games/basketballstar/icon.png" alt="Basketball Stars" loading="lazy">
+            <p>Basketball Stars</p>
+        </div>
+
+        <div class="game-card" data-url="games/braintest/index.html">
+            <img src="games/braintest/icon.png" alt="Brain Test: Tricky Puzzles" loading="lazy">
+            <p>Brain Test: Tricky Puzzles</p>
+        </div>
+
+        <div class="game-card" data-url="games/henrystickmin/breakingthebank/index.html">
+            <img src="games/henrystickmin/breakingthebank/icon.png" alt="Henry Stickmin: Breaking The Bank" loading="lazy">
+            <p>Henry Stickmin: Breaking The Bank</p>
+        </div>
+        
+        <div class="game-card" data-url="games/henrystickmin/escapingtheprison/index.html">
+            <img src="games/henrystickmin/escapingtheprison/icon.png" alt="Henry Stickmin: Escaping The Prison" loading="lazy">
+            <p>Henry Stickmin: Escaping The Prison</p>
+        </div>
+
+        <div class="game-card" data-url="games/henrystickmin/fleeingthecomplex/index.html">
+            <img src="games/henrystickmin/fleeingthecomplex/icon.png" alt="Henry Stickmin: Fleeing The Complex" loading="lazy">
+            <p>Henry Stickmin: Fleeing The Complex</p>
+        </div>
+
+        <div class="game-card" data-url="games/henrystickmin/infiltratingtheairship/index.html">
+            <img src="games/henrystickmin/infiltratingtheairship/icon.png" alt="Henry Stickmin: Infiltrating The Airship" loading="lazy">
+            <p>Henry Stickmin: Infiltrating The Airship</p>
+        </div>
+
+        <div class="game-card" data-url="games/henrystickmin/stealingthediamond/index.html">
+            <img src="system/QE13IP80.html" alt="Henry Stickmin: Stealing The Diamond" loading="lazy">
+            <p>Henry Stickmin: Stealing The Diamond</p>
+        </div>
+
+        </section>
+
+        <div id="game-window" class="game-window" style="display: none;">
+    <div class="window-toolbar">
+        <button id="close-btn" onclick="closeGameWindow()">✕ Close</button>
+        <button id="full-screen-btn" onclick="toggleFullScreen()">⛶ FullScreen</button>
+    </div>
+    <iframe id="game-frame" src="" frameborder="0"></iframe>
+</div>
+
+        <dialog id="download-dialog" style="padding: 20px; border-radius: 10px; border: none; background: #222; color: white;">
+    <h3 style="margin-top:0;">Downloading required assets...</h3>
+    <div style="width: 300px; height: 20px; background: #444; border-radius: 10px; overflow: hidden;">
+        <div id="progress-bar" style="height: 100%; width: 0%; background: var(--accent); transition: width 0.3s;"></div>
+    </div>
+    <p id="progress-text" style="text-align: center; margin-top: 10px;">0%</p>
+</dialog>
+
+<dialog id="settings-modal">
+    <div class="modal-header">
+        <h2>Settings</h2>
+        <button id="close-modal-top">×</button>
+    </div>
+    <div class="modal-content">
+        <div class="setting-group">
+            <label>Name</label>
+            <input type="text" id="username-input" placeholder="Your Name">
+        </div>
+        <div class="setting-group">
+            <label>Profile Picture</label>
+            <input type="file" id="avatar-upload" accept="image/*" style="display:none">
+            <button class="import-btn" onclick="document.getElementById('avatar-upload').click()">📁 Import Image</button>
+            <input type="hidden" id="avatar-input">
+        </div>
+       <div class="setting-group">
+    <label>Custom Cursor</label>
+    <div style="display: flex; gap: 10px;">
+        <button class="import-btn" onclick="document.getElementById('cursor-upload').click()">Upload Cursor</button>
+        <button id="reset-cursor" style="background: #ff4444; color: white; padding: 10px; border-radius: 8px; border: none;">Reset</button>
+    </div>
+    <input type="file" id="cursor-upload" accept="image/*" style="display:none">
+    <input type="hidden" id="cursor-input">
+</div>
+        <div class="setting-group">
+            <label>Theme</label>
+            <select id="theme-select">
+                <option value="dark">Dark Mode</option>
+                <option value="light">Light Mode</option>
+            </select>
+        </div>
+
+<div class="setting-group">
+    <label>Appearance</label>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="glass-toggle">
+        <span>Enable Liquid Glass</span>
+    </div>
+</div>
+
+<div class="settings-item">
+    <label>Sidebar Position</label>
+    <p>DO NOT TRY IT THIS OPTION WILL COVER THE SETTINGS BUTTON!</p>
+    <select id="sidebar-pos-select">
+        <option value="left">Left (Default)</option>
+        <option value="right">Right</option>
+        <option value="top">Top</option>
+        <option value="bottom">Bottom</option>
+    </select>
+</div>
+
+        <div class="setting-group">
+            <label>Accent Color</label>
+            <input type="color" id="color-input" value="#fffb00">
+        </div>
+        <div class="setting-group">
+    <label>Accessibility</label>
+    <div style="display: flex; align-items: center; gap: 10px; background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+        <span style="font-size: 0.85rem;">High Contrast</span>
+        <input type="checkbox" id="high-contrast-toggle" style="width: 20px; height: 20px; cursor: pointer;">
+    </div>
+</div>
+
+<div class="setting-group">
+    <label>Tab Cloaking (about:blank)</label>
+    <div style="display:flex; align-items:center; gap:10px;">
+        <input type="checkbox" id="cloak-toggle">
+        <span style="font-size:0.8rem; color:var(--text-soft);">Open games in a hidden tab</span>
+    </div>
+</div>
+
+<button id="clear-data-btn" style="background: #ff4444; color: white; padding: 10px; border-radius: 8px; border: none; margin-top: 10px; cursor: pointer;">
+    Clear All Data & Reset
+</button>
+
+        <button id="save-settings" class="btn-primary">Save Changes</button>
+        
+    </div>
+</dialog>
+
+<div id="browser-tab-content" class="tab-content">
+    <div class="window-header">
+        <span id="window-title">Web Browser</span>
+        <button onclick="document.getElementById('airsky-browser-window').style.display='none'" 
+                style="background:none; border:none; color:white; cursor:pointer; font-size: 20px;">&times;</button>
+    </div>
+    <iframe id="browser-frame" src="https://pizzadoodle13-web-engine-test.hf.space"></iframe>
+</div>
+
+<div id="ai-chat-section" class="tab-content" style="display: none;">
+    <div class="chat-container">
+        <div id="chat-messages" class="chat-window"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Type here...">
+            <button id="send-chat">Send</button>
+        </div>
+    </div>
+</div>
+
+<div id="download-airsky" class="tab-content" style="display: none;">
+    <div class="download-container">
+        <h2>Download AirSky Hub</h2>
+        <p>Get the best experience by downloading the desktop application.</p>
+        <a href="system/installpage/index.html" class="btn-primary">Download Now</a>
+    </div>
+</div>
+
+<div id="game-request-section" class="tab-content" style="display: none;">
+    <div style="width: 100%; height: 80vh; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+        <iframe src="https://forms.gle/hyMDwAU9w14tmu9a7" style="width: 100%; height: 100%; border: none;">Loading…</iframe>
+    </div>
+</div>
+
+<div id="minecraft-versions" class="tab-content" style="display: none;">
+
+    <section class="hero-banner">
+  <div class="banner-content">
+  </div>
+</section>
+
+  
+    <div class="game-card" data-url="minecraft/index.html">
+            <p>1.8</p>
+        </div>
+
+          <div class="game-card" data-url="minecraft/mcjava/target_teavm_javascript/javascript/index.html">
+            <p>1.26[WORKING ON IT]</p>
+        </div>
+
+         <div class="game-card" data-url="mc120/index.html">
+            <p>1.20.4</p>
+        </div>
+</div>
+
+<div id="minecraft-versions" class="tab-content" style="display: none;">
+        <div class="game-card" data-url="https://www.cosmos.so/e/1428933341">
+            <img src="Apps/comos.png" alt="Cosmos" loading="lazy">
+            <p>Halal Finder</p>
+        </div>
+</div>
+
+<div id="pc-vm" class="tab-content" style="display: none;">
+    <h1>PC Virtual Machine Working in Progress</h1>
+    <p>Coming Soon.....</p>
+</div>
+
+<div id="projects" class="tab-content" style="display: none;">
+    
+    <h1>Source Code of AirSky</h1>
+   <a href="https://github.com/fayadgamer13/AirSky.github.io">
+  <button id="github-theme">Source Code<img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Github_logo_svg.svg" alt="Minecraft icon" width="16" height="16"></button>
+</a>
+
+<p>AirSky is made by <strong>Fayadgamer13</strong>. (aka. Fayad AHMED)</p>
+
+<p>________________________</p>
+
+<h1>Other Projects</h1>
+ <a href="https://fayadgamer13.github.io/Halal_Finder.github.io/">
+  <button id="button-project">Halal Finder (Android-Only)</button>
+</a>
+
+<a href="https://fayadgamer13.github.io/RemindLater.github.io/">
+  <button id="button-project">RemindLater (Android-Only)</button>
+</a>
+
+<a href="https://github.com/fayadgamer13/NovaSurf/releases/tag/1.3">
+  <button id="button-project">NovaSurf (Android-Only)</button>
+</a>
+
+<a href="https://fayadgamer13.github.io/SandFiles.github.io/">
+  <button id="button-project">SandFiles</button>
+</a>
+
+<p>________________________</p>
+
+<h1>Follow Me and VIP Music+(Ammar) On Spotify</h1>
+<a href="https://open.spotify.com/user/31toqgbrshjhh4ovfby7knsejixq?si=189fca303fea459d">
+  <button id="spotify-bio">Follow <strong>VIP Music+</strong> on Spotify <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/2024_Spotify_logo_without_text_%28black%29.svg" alt="Spotify icon" width="16" height="16"></button>
+</a>
+
+<a href="https://open.spotify.com/user/31l2an5bzdaqv5kmtft7hsicicbe?si=3a36d6b99b1648a4">
+  <button id="spotify-bio">Follow <strong>DashBoradFayad</strong> on Spotify <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/2024_Spotify_logo_without_text_%28black%29.svg" alt="Spotify icon" width="16" height="16"></button>
+</a>
+
+<p>________________________</p>
+
+<h1>Visit Me on</h1>
+<a href="https://github.com/fayadgamer13">
+  <button id="github-theme">Github<img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Github_logo_svg.svg" alt="Minecraft icon" width="16" height="16"></button>
+</a>
+
+<a href="https://itch.io/profile/fayadgamer13">
+  <button id="itchio-theme">Itch.io<img src="https://img.icons8.com/ios11/600/FFFFFF/itch-io.png" alt="Minecraft icon" width="16" height="16"></button>
+</a>
+
+<a href="https://www.deviantart.com/fayadwadi">
+  <button id="deviantart-theme">DeviantArt<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/DeviantArt_Logo2.svg/960px-DeviantArt_Logo2.svg.png" alt="Minecraft icon" width="16" height="16"></button>
+</a>
+
+<a href="https://scratch.mit.edu/users/doodlegames13/">
+  <button id="scratch-theme">Scratch<img src="https://cdn2.steamgriddb.com/icon/969a086e0717a9b496dd0e9a50ec8010.png" alt="Scratch icon" width="16" height="16"></button>
+</a>
+
+</div>
+
+<div id="apps-section" class="tab-content" style="display: none;">
+      
+    <div class="game-card" data-url="https://www.cosmos.so/e/1428933341">
+            <img src="Apps/comos.png" alt="Cosmos" loading="lazy">
+            <p>Cosomos</p>
+            <p><code>Fun Fact: it will lead you to kaite's profile!</code></p>
+        </div>
+
+        <div class="game-card" data-url="https://www.duck.ai">
+            <img src="Apps/duckai.png" alt="Duck.ai" loading="lazy">
+            <p>Duck.ai</p>
+        </div>
+
+         <div class="game-card" data-url="https://search.brave.com/ask">
+            <img src="Apps/askbrave.png" alt="Ask Brave" loading="lazy">
+            <p>Ask Brave</p>
+        </div>
+
+         <div class="game-card" data-url="https://kleki.com/">
+            <img src="Apps/kleki.png" alt="Kleki" loading="lazy">
+            <p>Kleki</p>
+        </div>
+
+         <div class="game-card" data-url="https://www.pixilart.com/draw?ref=home-page">
+            <img src="Apps/Pixilart.png" alt="Pixilart" loading="lazy">
+            <p>Pixilart</p>
+        </div>
+
+        <div class="game-card" data-url="https://win7simu.visnalize.com/">
+            <img src="Apps/win7simu.png" alt="Win7 Simu" loading="lazy">
+            <p>Win7 Simu</p>
+        </div>
+
+        <div class="game-card" data-url="https://distrosea.com/">
+            <img src="Apps/distrosea.png" alt="Distrosea" loading="lazy">
+            <p>Distrosea</p>
+        </div>
+
+        <div class="game-card" data-url="https://safeshare.tv/">
+            <img src="Apps/safeshare.png" alt="SafeShare" loading="lazy">
+            <p>SafeShare</p>
+        </div>
+
+         <div class="game-card" data-url="https://www.photopea.com/">
+            <img src="Apps/photopea.png" alt="Photopea" loading="lazy">
+            <p>Photopea</p>
+        </div>
+
+         <div class="game-card" data-url="https://musiclab.chromeexperiments.com/">
+            <img src="Apps/chromemusiclab.svg" alt="Chrome Music Lab" loading="lazy">
+            <p>Chrome Music Lab</p>
+        </div>
+</div>
+
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+<div id="notification-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 10px; pointer-events: none;"></div>
+
+<script src="script.js"></script>
+
+<div id="game-window" class="game-window" style="display: none;">
+    <div class="window-toolbar">
+        <div class="toolbar-left">
+            <span id="now-playing-title">Loading Game...</span>
+        </div>
+        <div class="toolbar-right">
+            <button class="tool-btn" onclick="toggleFullScreen()">⛶ Fullscreen</button>
+            <button class="tool-btn close-btn" onclick="closeGameWindow()">✕ Close</button>
+        </div>
+    </div>
+    <div class="iframe-container">
+        <iframe id="game-frame" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+</body>
+</html>

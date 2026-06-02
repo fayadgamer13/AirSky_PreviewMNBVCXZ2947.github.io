@@ -1,0 +1,532 @@
+/* 1. CUSTOM FONT */
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('fonts/spacemono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. THEME ENGINE VARIABLES */
+:root {
+    /* Default Dark Mode */
+    --accent: #fffb00;
+    --bg: #0b0b0d;
+    --card: #16161a;
+    --text: #ffffff;
+    --text-soft: #a0a0cc;
+    --input-bg: #000000;
+    --border: rgba(255, 255, 255, 0.1);
+    --sidebar-w: 240px;
+    --main-font: 'MyCustomFont', sans-serif;
+}
+
+/* Explicit Light Mode */
+[data-theme="light"] {
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --text: #1a1a2e;
+    --text-soft: #555577;
+    --input-bg: #ffffff;
+    --border: rgba(0, 0, 0, 0.1);
+}
+
+/* Auto Mode: Syncs with System Settings */
+@media (prefers-color-scheme: light) {
+    [data-theme="auto"] {
+        --bg: #f0f2f5;
+        --card: #ffffff;
+        --text: #1a1a2e;
+        --text-soft: #555577;
+        --input-bg: #ffffff;
+        --border: rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* 3. CORE STYLES */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--main-font);
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+button {
+    font-family: var(--main-font);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Top Header Settings Button */
+#settings-btn {
+    background: var(--card);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+#settings-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Modal Buttons (Import Image, Upload Cursor) */
+.import-btn {
+    background: var(--input-bg);
+    color: var(--text-soft);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    width: 100%;
+    text-align: left;
+}
+
+.import-btn:hover {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#close-modal-top {
+    background: transparent;
+    border: none;
+    color: var(--text-soft);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: 0.2s;
+}
+
+#close-modal-top:hover {
+    color: #ff4444;
+    transform: scale(1.2);
+}
+
+/* High Contrast Mode - Overrides other themes */
+[data-contrast="high"] {
+    --bg: #000000 !important;
+    --card: #000000 !important;
+    --text: #ffffff !important;
+    --text-soft: #ffffff !important;
+    --accent: #ffff00 !important; /* Bright Yellow */
+    --border: #ffffff !important;
+    --input-bg: #000000 !important;
+}
+
+/* Ensure borders are extra visible in High Contrast */
+[data-contrast="high"] .game-card, 
+[data-contrast="high"] .side-nav,
+[data-contrast="high"] #game-search,
+[data-contrast="high"] dialog {
+    border: 2px solid #ffffff !important;
+}
+
+/* Make text bold for better readability */
+[data-contrast="high"] p, 
+[data-contrast="high"] h1, 
+[data-contrast="high"] h2, 
+[data-contrast="high"] span {
+    font-weight: bold !important;
+}
+
+/* Add this to hide the real mouse */
+.hide-default-cursor, .hide-default-cursor * {
+    cursor: none !important;
+}
+
+/* Ensure all interactive elements also hide the cursor */
+.hide-default-cursor button,
+.hide-default-cursor a,
+.hide-default-cursor .game-card {
+    cursor: none !important;
+}
+
+/* Hide real mouse globally when custom cursor is active */
+.hide-default-cursor, 
+.hide-default-cursor * {
+    cursor: none !important;
+}
+
+/* --- Folder Card Styling --- */
+.folder-card {
+    background: linear-gradient(145deg, var(--card), #1e1e24) !important;
+    border: 2px dashed var(--accent) !important;
+}
+
+.folder-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+/* --- Folder Modal Styling --- */
+.folder-modal {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 80%;
+    max-width: 800px;
+    color: var(--text);
+    padding: 0;
+}
+
+.folder-modal::backdrop {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+}
+
+.close-folder {
+    background: transparent;
+    border: none;
+    color: var(--text-soft);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* Ensure the custom cursor and notification container don't block clicks */
+#custom-cursor-follower {
+    pointer-events: none !important;
+    position: fixed;
+    z-index: 99999;
+}
+
+#recent-grid .game-card {
+    border-color: rgba(var(--accent-rgb), 0.3);
+    background: linear-gradient(to bottom, var(--card), rgba(0,0,0,0.4));
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #000; /* Dark text on bright yellow background */
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #000; /* Dark text on bright yellow background */
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+}
+
+/* --- SIDEBAR --- */
+.side-nav {
+    width: var(--sidebar-w); height: 100vh; background: var(--card);
+    position: fixed; left: 0; top: 0; border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; z-index: 1000; transition: 0.3s;
+}
+.side-nav.collapsed { width: 80px; }
+.side-nav.collapsed span { display: none; }
+
+.nav-item {
+    width: 100%; padding: 15px 25px; display: flex; align-items: center; gap: 15px;
+    background: none; border: none; color: var(--text-soft); cursor: pointer;
+    font-family: var(--main-font); transition: 0.2s;
+}
+.nav-item.active { color: var(--accent); background: rgba(255,255,255,0.05); border-left: 3px solid var(--accent); }
+
+/* --- CONTENT AREA --- */
+.content-wrapper { margin-left: var(--sidebar-w); flex: 1; padding: 30px; transition: 0.3s; overflow-y: auto; }
+.side-nav.collapsed ~ .content-wrapper { margin-left: 80px; }
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.profile-avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
+
+/* --- SEARCH & GRID --- */
+.search-container { margin-bottom: 25px; }
+#game-search {
+    width: 100%; max-width: 500px; padding: 12px 20px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--input-bg); color: var(--text);
+    font-family: var(--main-font); outline: none;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 15px;
+    padding: 15px; text-align: center; cursor: pointer; transition: 0.3s;
+    display: flex; flex-direction: column; align-items: center;
+}
+.game-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+.game-card img { width: 100%; aspect-ratio: 1/1; border-radius: 12px; margin-bottom: 10px; object-fit: cover; }
+
+/* --- SETTINGS MODAL --- */
+dialog {
+    margin: auto; border: none; border-radius: 20px; padding: 0;
+    background: var(--card); color: var(--text); width: 90%; max-width: 400px;
+    font-family: var(--main-font);
+}
+dialog::backdrop { background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+.modal-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+.modal-content { padding: 25px; display: flex; flex-direction: column; gap: 20px; }
+.setting-group { 
+    display: flex; flex-direction: column; gap: 8px; }
+    
+    input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--accent);
+    width: 18px;
+    height: 18px;
+}
+
+.setting-group input, .setting-group select { 
+    background: var(--input-bg); color: var(--text); padding: 10px; border-radius: 8px; border: 1px solid var(--border); 
+}
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.profile-avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--accent); object-fit: cover; }
+
+/* --- RESPONSIVE FIXES --- */
+@media (max-width: 768px) {
+    .games-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .side-nav { width: 80px; }
+    .content-wrapper { margin-left: 80px; padding: 15px; }
+}
+
+.sidebar-widgets {
+    margin-top: auto; /* Pushes it to the bottom of the nav */
+    padding: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-soft);
+}
+
+.collapsed .sidebar-widgets {
+    display: none; /* Hide when sidebar is small */
+}
+
+.widget-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#live-clock {
+    font-family: monospace;
+    color: var(--accent);
+    font-size: 1rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff88;
+}
+
+#battery-level {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Optional: Make the battery icon glow based on level */
+.battery-low {
+    color: #ff4444;
+    text-shadow: 0 0 5px #ff4444;
+}
+
+.battery-charging {
+    color: #00ff88;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* ... Keep your existing variables and core styles ... */
+
+#notification-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none; /* Clicks pass through the empty area */
+}
+
+.toast {
+    background: var(--card);
+    color: var(--text);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 250px;
+    pointer-events: auto;
+    border: 1px solid var(--border);
+    animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(120%); opacity: 0; }
+}
+
+.toast.fade-out {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
+/* Browser Layout Fix */
+#browser-tab-content {
+    height: calc(100vh - 140px);
+}
+
+#browser-tab-content.active {
+    display: flex;
+}
+
+.browser-ui {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.browser-controls button, #b-go {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#b-input {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 15px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.iframe-wrapper {
+    flex: 1;
+    background: #fff; /* White background for web compatibility */
+}
+
+#main-browser-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 1. Ensure the cursor NEVER catches a click */
+#custom-cursor-follower {
+    pointer-events: none !important;
+    position: fixed;
+    z-index: 100001; /* Must be higher than everything else */
+}
+
+/* 3. But allow users to click the actual toast buttons if you add them later */
+.toast {
+    pointer-events: auto; 
+}
+
+/* 4. Fix potential sidebar overlap */
+.side-nav {
+    z-index: 1000;
+}
+
+/* Folder Modal Fixes */
+.folder-modal .modal-content {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.folder-modal .games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+/* Ensure the X button is visible */
+.close-folder {
+    background: transparent;
+    border: none;
+    color: var(--text-soft);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.close-folder:hover {
+    color: var(--accent);
+}
+
+/* --- TAB SYSTEM FIX --- */
+.tab-content {
+    display: none; /* Hide ALL tabs by default */
+    width: 100%;
+}
+
+.tab-content.active {
+    display: block; /* Only show the active tab */
+}
+
+/* Specific fix for Browser to prevent it from bleeding into other tabs */
+#browser-tab-content {
+    display: none; 
+    height: calc(100vh - 120px);
+    width: 100%;
+}
+
+#browser-tab-content.active {
+    display: flex; /* Browser needs Flex to align the address bar and iframe */
+    flex-direction: column;
+}
+
+
+
