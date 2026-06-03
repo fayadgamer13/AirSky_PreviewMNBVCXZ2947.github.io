@@ -690,6 +690,25 @@ header { display: flex; justify-content: space-between; align-items: center; mar
     padding: 20px;
 }
 
+dialog {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* Dims the background */
+}
+
+dialog img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+
 .chat-container {
     background: #111; /* Slightly lighter than your main black */
     border: 1px solid #333;
