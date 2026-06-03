@@ -404,3 +404,9 @@ function closeFolder(folderId) {
         folder.classList.remove('active');
     }
 }
+
+window.onload = function() {
+    const dialog = document.getElementById("myModal");
+    dialog.showModal(); // Opens the dialog automatically as a modal
+};
+
